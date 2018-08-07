@@ -1,0 +1,66 @@
+main {
+  padding: 40px;
+  font-size: 14px;
+  font-family: helvetica, arial, sans-serif;
+  font-weight: 400;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.userinfo {
+  margin: auto;
+  width: calc(26px * 36)/2;
+  padding-bottom: 40px;
+}
+
+.userinfo__form {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.userinfo__form label {
+  padding-right: 0.5rem;
+  padding-left: 1rem;
+}
+
+#timeleft {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  width: calc(26px * 36);
+  margin: auto;
+  padding: 1px;
+}
+
+#timeleft div {
+  background: #fff;
+  border: 1px solid #333;
+  margin: 2px;
+  height: 20px;
+  text-align: center;
+  -ms-flex-preferred-size: 20px;
+      flex-basis: 20px;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+#timeleft div:hover {
+  background: #eee;
+}
+
+#timeleft div:first-child,
+#timeleft div:last-child {
+  background: #333;
+}
+/*# sourceMappingURL=style.css.map */
