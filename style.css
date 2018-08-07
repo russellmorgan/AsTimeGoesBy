@@ -43,7 +43,7 @@ main {
   padding: 1px;
 }
 
-#timeleft div {
+#timeleft .month {
   background: #fff;
   border: 1px solid #333;
   margin: 2px;
@@ -55,12 +55,11 @@ main {
   overflow: hidden;
 }
 
-#timeleft div:hover {
+#timeleft .month:hover {
   background: #eee;
 }
 
-#timeleft div:first-child,
-#timeleft div:last-child {
+#timeleft .month--past {
   background: #333;
 }
 /*# sourceMappingURL=style.css.map */
