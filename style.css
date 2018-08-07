@@ -32,6 +32,23 @@ main {
   padding-left: 1rem;
 }
 
+.userinfo__form--hide {
+  display: none;
+}
+
+.userinfo__details {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.userinfo__details--hide {
+  display: none;
+}
+
 #timeleft {
   display: -webkit-box;
   display: -ms-flexbox;

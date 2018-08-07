@@ -24,6 +24,17 @@ main {
     padding-right: 0.5rem;
     padding-left: 1rem;
   }
+  &--hide {
+    display: none;
+  }
+}
+
+.userinfo__details {
+  display:flex;
+  justify-content: space-between;
+  &--hide {
+    display: none;
+  }
 }
 
 #timeleft {

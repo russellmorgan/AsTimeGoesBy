@@ -1,31 +1,31 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <title>As time goes by</title>
         <link rel="stylesheet" href="style.css">
     </head>
 <body>
     <main>
-    <div class='userinfo'>
-        <h2>Your life from 0 to age 90 in months</h2>
-        <div class='userinfo__form'>
-            <div>
-            <label>Name</label>
-            <input type="text" id="userName" placeholder="any name you want">
+        <div class='userinfo'>
+            <h2>Your life from 0 to age 90 in months</h2>
+            <div class='userinfo__form'>
+                <form id="userInfoForm">
+                    <label>Name</label>
+                    <input type="text" id="userName" placeholder="any name you want">
+                    <label>Year of birth</label>
+                    <input type='number' id='userYear'>
+                    <label>Month of birth</label>
+                    <input type="number" id="userMonth">
+                    <button id="submit">submit</button>
+                </form>
             </div>
-            <div>
-            <label>Year of birth</label>
-            <input type='number' id='userYear'>
+            <div class="userinfo__details">
+                <div class="userinfo__name">Name</div>
+                <div class="userinfo__birth">Birthdate</div>
+                <button id="reset">reset</button>
             </div>
-            <div>
-            <label>Month of birth</label>
-            <input type="number" id="userMonth">
-            </div>
-            <button id="userSubmit">SUBMIT</button>
         </div>
-        </div>
-        <div id='timeleft'>
-        <!-- gets populated by script -->
-    </div>
+        <div id='timeleft'><!-- gets populated by script --></div>
     </main>
     <script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/moment.min.js"></script>
     <script src="main.js"></script>
