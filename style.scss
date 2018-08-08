@@ -48,7 +48,7 @@ button {
   font-weight: 600;
   cursor: pointer;
   margin-top: .6rem;
-  max-width: 50%;
+  max-width: 50%; 
   &:hover {
     opacity:0.8;
   }
@@ -58,6 +58,11 @@ button {
   display:flex;
   flex-direction: column;
   overflow: hidden;
+  form {
+    margin-top:1rem;
+    padding: 1rem 1rem 2rem 1rem;
+    background: #ddd;
+  }
   label {
     display: block;
     font-weight: 500;
