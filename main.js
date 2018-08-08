@@ -49,9 +49,12 @@ class TimeLeftClass {
     }
     showUserData() {
       //Display current user data
-      //TODO: Show date string instead of number with momentjs
-      document.getElementsByClassName("userinfo__name")[0].textContent = `Hello ${this.userInfo.userName}`;
-      document.getElementsByClassName("userinfo__birth")[0].textContent = `Birthdate: ${this.userInfo.userMonth}, ${this.userInfo.userYear}`;
+      let birthdate = new moment();
+      birthdate.set('year', this.userInfo.userYear);
+      birthdate.set('month', this.userInfo.userMonth-1);
+      birthdate = birthdate.format('MMMM YYYY');
+      document.getElementsByClassName("userinfo__name")[0].textContent = `Hi ${this.userInfo.userName}`;
+      document.getElementsByClassName("userinfo__birth")[0].textContent = `You were born ${birthdate}`;
       this.buildGrid()
     }
     buildGrid() {
@@ -65,6 +68,7 @@ class TimeLeftClass {
       this.showStatus();
     }
     showStatus() {
+      //Calculates past months onto the grid
       let userBirth = moment(`${this.userInfo.userYear} ${this.userInfo.userMonth}`, 'YYYY MM');
       let monthsUsed = userBirth.diff(moment(), 'months')*-1;
       let monthsGrid = document.getElementsByClassName('month');

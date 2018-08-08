@@ -1,8 +1,59 @@
+body {
+  font-family: "-apple-system", "BlinkMacSystemFont","Roboto","Helvetica Neue", Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+h1, h2, h3 {
+  font-weight: 300;
+  margin: 0;
+  padding: 0;
+  line-height: 1;
+}
+
+h1 {
+  font-size: 3.3rem;
+}
+
+h2 {
+  margin-top: 1.2rem;
+}
+
 main {
-  padding: 40px;
-  font-size: 14px;
-  font-family: helvetica, arial, sans-serif;
-  font-weight: 400;
+  height: 100vh;
+  width: 100vw;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+aside {
+  width: 25%;
+  background: #eeee;
+  padding: 2rem;
+}
+
+section {
+  padding: 2rem;
+  width: 75%;
+}
+
+button {
+  padding: 1rem;
+  border: 1px solid #ccc;
+  background: #fff;
+  text-transform: uppercase;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: .6rem;
+  max-width: 50%;
+}
+
+button:hover {
+  opacity: 0.8;
+}
+
+.userinfo__form {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -10,26 +61,21 @@ main {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-}
-
-.userinfo {
-  margin: auto;
-  width: calc(26px * 36)/2;
-  padding-bottom: 40px;
-}
-
-.userinfo__form {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
+  overflow: hidden;
 }
 
 .userinfo__form label {
-  padding-right: 0.5rem;
-  padding-left: 1rem;
+  display: block;
+  font-weight: 500;
+}
+
+.userinfo__form input {
+  width: 90%;
+  border: 1px solid #ccc;
+  padding: .8rem .5rem;
+  font-size: 14px;
+  margin-bottom: 1rem;
+  margin-top: 0.4rem;
 }
 
 .userinfo__form--hide {
@@ -40,9 +86,10 @@ main {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
 }
 
 .userinfo__details--hide {
@@ -55,7 +102,8 @@ main {
   display: flex;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
-  width: calc(26px * 36);
+  width: 100%;
+  /*width:$width;*/
   margin: auto;
   padding: 1px;
 }

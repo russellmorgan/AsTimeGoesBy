@@ -6,27 +6,33 @@
     </head>
 <body>
     <main>
+    <aside>
         <div class='userinfo'>
-            <h2>Your life from 0 to age 90 in months</h2>
             <div class='userinfo__form'>
+                <h1>Your life in months</h1>
+                <p>Enter in your birthdate to visualize how many months of your life have gone and how many you have left should you reach the age of 90.</p>
                 <form id="userInfoForm">
-                    <label>Name</label>
-                    <input type="text" id="userName" placeholder="any name you want">
-                    <label>Year of birth</label>
-                    <input type='number' id='userYear'>
-                    <label>Month of birth</label>
+                    <label>Your Name</label>
+                    <input type="text" id="userName">
+                    <label>In what month were you born?</label>
                     <input type="number" id="userMonth">
-                    <button id="submit">submit</button>
+                    <label>And what year were you born?</label>
+                    <input type='number' id='userYear'>
+                    <button id="submit">Let's do this</button>
                 </form>
             </div>
             <div class="userinfo__details">
-                <div class="userinfo__name">Name</div>
-                <div class="userinfo__birth">Birthdate</div>
-                <button id="reset">reset</button>
+                <h1 class="userinfo__name">Name</h1>
+                <h2 class="userinfo__birth">Birthdate</h2>
+                <p>Here's how many months of your life have gone by, and how many you have left if you live to the ripe old age of 90</p>
+                <button id="reset">START OVER</button>
             </div>
         </div>
+    </aside>
+    <section>
         <div id='timeleft'><!-- gets populated by script --></div>
-    </main>
+    </section>  
+    </main>  
     <script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/moment.min.js"></script>
     <script src="main.js"></script>
 </body>
