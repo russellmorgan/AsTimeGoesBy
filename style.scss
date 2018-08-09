@@ -136,7 +136,7 @@ button {
 
 // Tablet
 @media only screen 
-and (min-width : 768px) 
+and (min-width : 769px) 
 and (max-width : 1024px) { 
   .showinfo {
     grid-template-columns: 30% 1fr;
@@ -149,7 +149,7 @@ and (max-width : 1024px) {
 
 // Mobile
 @media only screen 
-and (max-width : 767.98px) { 
+and (max-width : 768px) { 
   h1 {
     font-size: 2.3rem;
   }
@@ -162,6 +162,7 @@ and (max-width : 767.98px) {
   }
   .userinfo__form {
     padding: 1rem 1rem 2rem 1rem;
+    height: 100vh;
     form {
       width: 100%;
     }
