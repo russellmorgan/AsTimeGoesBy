@@ -4,19 +4,25 @@ body {
   padding: 0;
 }
 
-h1, h2, h3 {
+h1, h2 {
   font-weight: 300;
   margin: 0;
   padding: 0;
-  line-height: 1;
+  line-height: 1.1;
 }
 
 h1 {
-  font-size: 3.3rem;
+  font-size: 3rem;
 }
 
 h2 {
-  margin-top: 1.2rem;
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+p {
+  padding: 0;
+  margin: .5rem auto;
 }
 
 main {
@@ -28,29 +34,41 @@ main {
 }
 
 aside {
-  width: 25%;
   background: #eeee;
   padding: 2rem;
 }
 
-section {
-  padding: 2rem;
-  width: 75%;
-}
-
 button {
-  padding: 1rem;
+  padding: .8rem .5rem;
   border: 1px solid #ccc;
   background: #fff;
   text-transform: uppercase;
-  font-weight: 600;
   cursor: pointer;
-  margin-top: .6rem;
-  max-width: 50%;
+  margin-top: 1.5rem;
 }
 
 button:hover {
   opacity: 0.8;
+}
+
+.userinfo {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -ms-flex-line-pack: center;
+      align-content: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  width: 100%;
+}
+
+.userinfo--hide {
+  display: none;
 }
 
 .userinfo__form {
@@ -61,34 +79,43 @@ button:hover {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  overflow: hidden;
+  max-width: 800px;
+  margin: auto;
+  background: rgba(0, 0, 0, 0.1);
+  padding: 2rem;
+  -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+          box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
 }
 
 .userinfo__form form {
   margin-top: 1rem;
-  padding: 1rem 1rem 2rem 1rem;
-  background: #ddd;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  width: 60%;
 }
 
 .userinfo__form label {
-  display: block;
   font-weight: 500;
 }
 
 .userinfo__form input {
-  width: 90%;
   border: 1px solid #ccc;
   padding: .8rem .5rem;
   font-size: 14px;
   margin-bottom: 1rem;
-  margin-top: 0.4rem;
+  margin-top: 0.5rem;
 }
 
 .userinfo__form--hide {
   display: none;
 }
 
-.userinfo__details {
+.showinfo__details {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -98,32 +125,38 @@ button:hover {
           flex-direction: column;
 }
 
-.userinfo__details--hide {
+.showinfo {
+  width: 100%;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 25% 1fr;
+      grid-template-columns: 25% 1fr;
+  -ms-grid-rows: 100%;
+      grid-template-rows: 100%;
+}
+
+.showinfo--hide {
   display: none;
 }
 
 #timeleft {
+  margin: 2rem;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
-  width: 100%;
-  /*width:$width;*/
-  margin: auto;
-  padding: 1px;
+  -ms-flex-flow: wrap;
+      flex-flow: wrap;
 }
 
 #timeleft .month {
   background: #fff;
   border: 1px solid #333;
-  margin: 2px;
-  height: 20px;
   text-align: center;
-  -ms-flex-preferred-size: 20px;
-      flex-basis: 20px;
   cursor: pointer;
   overflow: hidden;
+  width: 20px;
+  height: 20px;
+  margin: 2px;
 }
 
 #timeleft .month:hover {
@@ -132,5 +165,54 @@ button:hover {
 
 #timeleft .month--past {
   background: #333;
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1024px) {
+  .showinfo {
+    -ms-grid-columns: 30% 1fr;
+        grid-template-columns: 30% 1fr;
+  }
+  #timeleft .month {
+    height: 14px;
+    width: 14px;
+  }
+}
+
+@media only screen and (max-width: 767.98px) {
+  h1 {
+    font-size: 2.3rem;
+  }
+  h2 {
+    font-size: 1.3rem;
+  }
+  .userinfo {
+    -webkit-box-pack: start;
+        -ms-flex-pack: start;
+            justify-content: flex-start;
+    -webkit-box-shadow: none;
+            box-shadow: none;
+  }
+  .userinfo__form {
+    padding: 1rem 1rem 2rem 1rem;
+  }
+  .userinfo__form form {
+    width: 100%;
+  }
+  .showinfo {
+    -ms-grid-rows: auto 1fr;
+        grid-template-rows: auto 1fr;
+    -ms-grid-columns: 1fr;
+        grid-template-columns: 1fr;
+  }
+  aside {
+    padding: 1rem 1rem 1.5rem 1rem;
+  }
+  #timeleft {
+    margin: 1rem;
+  }
+  #timeleft .month {
+    height: 14px;
+    width: 14px;
+  }
 }
 /*# sourceMappingURL=style.css.map */

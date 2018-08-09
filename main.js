@@ -12,12 +12,12 @@ class TimeLeftClass {
       if(this.userInfo) {
         //Make sure the data is in JSON format
         this.userInfo = JSON.parse(localStorage.getItem('userInfo'));
-        document.getElementsByClassName("userinfo__form")[0].style.display = 'none';
-        document.getElementsByClassName("userinfo__details")[0].style.display = 'flex';
+        document.getElementsByClassName("userinfo")[0].classList.add('userinfo--hide');
+        document.getElementsByClassName("showinfo")[0].classList.remove('showinfo--hide');
         this.showUserData();
       } else {
-        document.getElementsByClassName("userinfo__form")[0].style.display = 'flex';
-        document.getElementsByClassName("userinfo__details")[0].style.display = 'none';
+        document.getElementsByClassName("userinfo")[0].classList.remove('userinfo--hide');
+        document.getElementsByClassName("showinfo")[0].classList.add('showinfo--hide');
       }
       
     }

@@ -1,5 +1,4 @@
 $basepadding:4px;
-$width:calc(26px * 36); //26px cube * 36 per row
 $border:#333;
 
 body {
@@ -8,19 +7,25 @@ body {
   padding:0;
 }
 
-h1, h2,h3 {
+h1, h2 {
   font-weight: 300;
   margin:0;
   padding:0;
-  line-height: 1;
+  line-height: 1.1;
 }
 
 h1 {
-  font-size: 3.3rem;
+  font-size: 3rem;
 }
 
 h2 {
-  margin-top: 1.2rem;
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+p {
+  padding:0;
+  margin:.5rem auto;
 }
 
 main {
@@ -30,85 +35,95 @@ main {
 } 
 
 aside {
-  width: 25%;
   background: #eeee;
   padding: 2rem;
 }
 
-section {
-  padding: 2rem;
-  width: 75%;
-}
-
 button {
-  padding: 1rem;
+  padding: .8rem .5rem;
   border: 1px solid #ccc;
   background: #fff;
   text-transform: uppercase;
-  font-weight: 600;
   cursor: pointer;
-  margin-top: .6rem;
-  max-width: 50%; 
+  margin-top: 1.5rem;
   &:hover {
     opacity:0.8;
+  }
+}
+
+.userinfo {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  justify-content: center;
+  width: 100%;
+  &--hide {
+    display: none;
   }
 }
 
 .userinfo__form {
   display:flex;
   flex-direction: column;
-  overflow: hidden;
+  max-width: 800px;
+  margin: auto;
+  background: rgba(0,0,0,0.1);
+  padding: 2rem;
+  box-shadow: 0 0 10px rgba(0,0,0,0.3);
   form {
     margin-top:1rem;
-    padding: 1rem 1rem 2rem 1rem;
-    background: #ddd;
+    display: flex;
+    flex-direction: column;
+    width: 60%;
   }
   label {
-    display: block;
     font-weight: 500;
   }
   input {
-    width: 90%;
     border: 1px solid #ccc;
     padding: .8rem .5rem;
     font-size: 14px;
     margin-bottom: 1rem;
-    margin-top: 0.4rem;  
+    margin-top: 0.5rem; 
   }
   &--hide {
     display: none;
   }
 }
 
-.userinfo__details {
+.showinfo__details {
   display:flex;
   flex-direction: column;
+}
+
+.showinfo {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 25% 1fr;
+  grid-template-rows: 100%;
   &--hide {
     display: none;
-  }
+  }  
+}
+
+.showinfo__grid {
 }
 
 #timeleft {
-  //convert this to a grid so we always get 36 cols
-  display:flex;
-  flex-wrap:wrap;
-  width: 100%;
-  /*width:$width;*/
-  margin:auto;
-  padding:1px;
+  margin: 2rem;
+  display: flex;
+  flex-flow: wrap;
 }
 
 #timeleft .month {
   background:#fff;
   border:1px solid $border;
-  //padding:$basepadding * 2;
-  margin:$basepadding/2;
-  //font-size:1.4rem;
-  height:20px;
   text-align:center;
-  flex-basis:20px;
   cursor:pointer;
   overflow:hidden;
+  width: 20px;
+  height: 20px;
+  margin: 2px;
   &:hover {
     background:#eee;
   }
@@ -116,4 +131,53 @@ button {
 
 #timeleft .month--past {
   background: $border;
+}
+
+
+// Tablet
+@media only screen 
+and (min-width : 768px) 
+and (max-width : 1024px) { 
+  .showinfo {
+    grid-template-columns: 30% 1fr;
+  }
+  #timeleft .month {
+    height: 14px;
+    width: 14px;
+  }
+}
+
+// Mobile
+@media only screen 
+and (max-width : 767.98px) { 
+  h1 {
+    font-size: 2.3rem;
+  }
+  h2 {
+    font-size: 1.3rem;
+  }
+  .userinfo {
+    justify-content: flex-start;
+    box-shadow: none;
+  }
+  .userinfo__form {
+    padding: 1rem 1rem 2rem 1rem;
+    form {
+      width: 100%;
+    }
+  }
+  .showinfo {
+    grid-template-rows: auto 1fr;
+    grid-template-columns: 1fr;
+  }
+  aside {
+    padding: 1rem 1rem 1.5rem 1rem;
+  }
+  #timeleft {
+    margin: 1rem;
+  }
+  #timeleft .month {
+    height: 14px;
+    width: 14px;
+  }
 }
