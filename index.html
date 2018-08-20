@@ -11,10 +11,18 @@
     <section class="userinfo">
       <div class='userinfo__form'>
         <h1>Your life in months</h1>
-        <p>Enter in your birthdate to visualize how many months of your life have gone by and how many you have left if you live to 90 years of age.</p>
-        <p>This project is based on a wait but why article that I encourage you to <a href="https://waitbutwhy.com/2014/05/life-weeks.html" target="_new">read</a>. I hope this (or the article) will help you make the best of the time you have. As you will see in a moment, life is kind of short so go for quality! ;-)</p>
+        <p>Enter in your birthdate to visualize how many months of your life have gone by and how many you have left if you live. (The defaut is 90 but feel free to change it)</p>
+        <p>This project is based on a wait but why article that I encourage you to <a href="https://waitbutwhy.com/2014/05/life-weeks.html" target="_new">read</a>. Far from being morbid I hope it helps you make the best of the time you have. </p>
         <form id="userInfoForm" name="userInfoForm">
-          <label>Your Name</label> <input id="userName" type="text"> <label>In what month were you born?</label> <input id="userMonth" type="number"> <label>And what year were you born?</label> <input id='userYear' type='number'> <button id="submit">Let's do this</button>
+          <label>Your Name</label> 
+          <input id="userName" type="text" placeholder="First name works best"> 
+          <label>In what month were you born?</label> 
+          <input id="userMonth" type="number" min="1" max="12" placeholder="1 through 12" required> 
+          <label>And what year were you born?</label> 
+          <input id='userYear' type='number' min="1900" max="2018" required> 
+          <label>How many years total do you think you will live?</label>
+          <input id="userLength" type="number" min="0" max="200" placeholder="To use 90 years old leave this blank">
+          <button id="submit">Let's do this</button>
         </form>
       </div>
     </section>
@@ -23,7 +31,7 @@
         <div class="showinfo__details">
           <h1 class="userinfo__name">Name</h1>
           <h2 class="userinfo__birth">Birthdate</h2>
-          <p>Here's how many months of your life have gone by, and how many you have left if you live to the ripe old age of ninety.</p>
+          <p>Here's how many months of your life have gone by, and how many you have left.</p>
           <p>You can bookmark this page and come back anytime if you need a reminder of your time left, it will save your info and update as time goes by.</p><button id="reset">START OVER</button>
         </div>
       </aside>

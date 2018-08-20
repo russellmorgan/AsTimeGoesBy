@@ -1,6 +1,6 @@
 class TimeLeftClass {
     constructor() {
-      this.userLife = 1081 //90 years, let user pick later
+      this.userLife = 1081 //90 years default, let user pick later
       this.userInfo = localStorage.getItem('userInfo');
     }
     init() {
@@ -39,8 +39,9 @@ class TimeLeftClass {
         let name = document.getElementById("userName").value;
         let month = document.getElementById("userMonth").value;
         let year = document.getElementById("userYear").value;
+        let life = document.getElementById("userLength").value;
         //TODO: Validate user entered something...
-        const userInfo = { userName: name, userMonth: month, userYear: year };
+        const userInfo = { userName: name, userMonth: month, userYear: year, userLength: life };
         localStorage.setItem('userInfo', JSON.stringify(userInfo));
         this.userInfo = localStorage.getItem('userInfo');
         this.displayData();
@@ -59,6 +60,12 @@ class TimeLeftClass {
     }
     buildGrid() {
       const grid = document.getElementById('timeleft');
+      //Check to see if the user gave a different year...
+      if(this.userInfo.userLength) { 
+        this.userLife = this.userInfo.userLength*12 
+      } else { 
+      this.userLife = 1081 }
+      console.log(this.userLife);
       for (let i = 1; i < this.userLife; i++) {
         let month = document.createElement('div');
         month.className = 'month';
