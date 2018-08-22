@@ -11,18 +11,25 @@
     <section class="userinfo">
       <div class='userinfo__form'>
         <h1>Your life in months</h1>
-        <p>Enter in your birthdate to visualize how many months of your life have gone by and how many you have left if you live. (The defaut is 90 but feel free to change it)</p>
-        <p>This project is based on a wait but why article that I encourage you to <a href="https://waitbutwhy.com/2014/05/life-weeks.html" target="_new">read</a>. Far from being morbid I hope it helps you make the best of the time you have. </p>
+        <p>Visualize how many months of your life have gone by and how many you may have left. This app is based on a wait but why article <a href="https://waitbutwhy.com/2014/05/life-weeks.html" target="_new">your life in weeks.</a></p>
         <form id="userInfoForm" name="userInfoForm">
           <label>Your Name</label> 
-          <input id="userName" type="text" placeholder="First name works best"> 
-          <label>In what month were you born?</label> 
-          <input id="userMonth" type="number" min="1" max="12" placeholder="1 through 12" required> 
-          <label>And what year were you born?</label> 
-          <input id='userYear' type='number' min="1900" max="2018" required> 
-          <label>How many years total do you think you will live?</label>
-          <input id="userLength" type="number" min="0" max="200" placeholder="To use 90 years old leave this blank">
-          <button id="submit">Let's do this</button>
+          <input id="userName" type="text" placeholder="First name"> 
+          <div class="userinfo__dates">
+            <div>
+              <label>Birth month</label> 
+              <input id="userMonth" type="number" min="1" max="12" placeholder="1 through 12" required> 
+            </div>
+            <div>
+              <label>Birth year</label> 
+              <input id='userYear' type='number' min="1900" max="2018" required placeholder="1989"> 
+            </div>
+            <div>
+              <label>Expected lifespan</label>
+              <input id="userLength" type="number" min="0" max="200" placeholder="Default is 90 years">
+            </div>
+            <button id="submit">GO</button>
+          </div>
         </form>
       </div>
     </section>

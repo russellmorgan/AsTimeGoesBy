@@ -70,7 +70,7 @@ class TimeLeftClass {
         let month = document.createElement('div');
         month.className = 'month';
         grid.appendChild(month);
-        month.setAttribute('title', 'month'+i);
+        month.setAttribute('title', 'month '+i);
       }
       this.showStatus();
     }
