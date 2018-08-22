@@ -5,13 +5,14 @@ $green: rgba(46, 196, 182, 1);
 $red: rgba(231, 29, 54, 1);
 $yellow: rgba(255, 159, 28, 1);
 
-$basepadding:4px;
+$basepadding:5px;
 $border:#333;
 
 body {
   font-family: "-apple-system", "BlinkMacSystemFont","Roboto","Helvetica Neue", Arial, sans-serif;
   margin:0;
   padding:0;
+  background: $blue;
 }
 
 h1, h2 {
@@ -101,91 +102,117 @@ button {
 .showinfo__details {
   display:flex;
   flex-direction: column;
+  display:none;
 }
 
 .showinfo {
   width: 100%;
-  display: grid;
-  grid-template-columns: 25% 1fr;
-  grid-template-rows: 100%;
+  margin: 1rem 1rem 2rem 1rem;
   &--hide {
     display: none;
   }  
 }
 
 .showinfo__grid {
-}
-
-#timeleft {
-  margin: 2rem;
-  display: flex;
-  flex-flow: wrap;
-}
-
-#timeleft .month {
-  background:#fff;
-  border:1px solid $border;
-  text-align:center;
-  cursor:pointer;
-  overflow:hidden;
-  width: 20px;
-  height: 20px;
-  margin: 2px;
-  &:hover {
-    background:#eee;
+  height: 100%;
+  #timeleft {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-gap: $basepadding*2;
+    grid-template-columns: repeat(auto-fit, minmax(20px, 1fr));
+    grid-template-rows: repeat(auto-fit, 20px);
   }
-}
-
-#timeleft .month--past {
-  background: $border;
-}
-
-
-// Tablet
-@media only screen 
-and (min-width : 769px) 
-and (max-width : 1024px) { 
-  .showinfo {
-    grid-template-columns: 30% 1fr;
-  }
+  
   #timeleft .month {
-    height: 14px;
-    width: 14px;
-  }
-}
-
-// Mobile
-@media only screen 
-and (max-width : 768px) { 
-  h1 {
-    font-size: 2.3rem;
-  }
-  h2 {
-    font-size: 1.3rem;
-  }
-  .userinfo {
-    justify-content: flex-start;
-    box-shadow: none;
-  }
-  .userinfo__form {
-    padding: 1rem 1rem 2rem 1rem;
-    height: 100vh;
-    form {
-      width: 100%;
+    animation: 1.5s ease-in-out both anim-month;
+    transition: all .5s;
+    background:$white;
+    backface-visibility: hidden;
+    text-align:center;
+    cursor:pointer;
+    overflow:hidden;
+    &:hover {
+      transform: scale(1.5);
+      background: lighten($white, 20%);
     }
   }
-  .showinfo {
-    grid-template-rows: auto 1fr;
-    grid-template-columns: 1fr;
-  }
-  aside {
-    padding: 1rem 1rem 1.5rem 1rem;
-  }
-  #timeleft {
-    margin: 1rem;
-  }
-  #timeleft .month {
-    height: 14px;
-    width: 14px;
+  
+  #timeleft .month--past {
+    background: $green;
+    &:hover {
+      background: lighten($green, 20%);
+    }
   }
 }
+
+// Tile animation
+@keyframes anim-month {
+  0% {
+    opacity: 0;
+  }
+  
+  100% {
+    opacity: 1;
+  }
+}
+
+// SASS Loop animation, set for age 121 which is the record at the moment
+@for $i from 1 through 1452 {
+  #timeleft .month {
+    &:nth-child(#{$i}) {
+      // Delay the animation. Delay increases as items loop.
+      animation-delay: $i * (.005s);
+    }
+  }
+}
+
+
+// // Tablet
+// @media only screen 
+// and (min-width : 769px) 
+// and (max-width : 1024px) { 
+//   .showinfo {
+//     grid-template-columns: 30% 1fr;
+//   }
+//   #timeleft .month {
+//     height: 14px;
+//     width: 14px;
+//   }
+// }
+
+// // Mobile
+// @media only screen 
+// and (max-width : 768px) { 
+//   h1 {
+//     font-size: 2.3rem;
+//   }
+//   h2 {
+//     font-size: 1.3rem;
+//   }
+//   .userinfo {
+//     justify-content: flex-start;
+//     box-shadow: none;
+//   }
+//   .userinfo__form {
+//     padding: 1rem 1rem 2rem 1rem;
+//     height: 100vh;
+//     form {
+//       width: 100%;
+//     }
+//   }
+//   .showinfo {
+//     grid-template-rows: auto 1fr;
+//     grid-template-columns: 1fr;
+//   }
+//   aside {
+//     padding: 1rem 1rem 1.5rem 1rem;
+//   }
+//   #timeleft {
+//     margin: 1rem;
+//   }
+//   #timeleft .month {
+//     height: 14px;
+//     width: 14px;
+//   }
+// }
