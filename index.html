@@ -10,8 +10,10 @@
   <main>
     <section class="userinfo">
       <div class='userinfo__form'>
-        <h1>Your life in months</h1>
-        <p>Visualize how many months of your life have gone by and how many you may have left. This app is based on a wait but why article <a href="https://waitbutwhy.com/2014/05/life-weeks.html" target="_new">your life in weeks.</a></p>
+        <div class="userinfo__intro">
+          <h1>As time goes by</h1>
+          <p>Based on a wait but why article <a href="https://waitbutwhy.com/2014/05/life-weeks.html" target="_new">your life in weeks</a>, this app allows you to visualize how many months of your life have gone by and how many you may have left. </p>
+      </div>
         <form id="userInfoForm" name="userInfoForm">
           <label>Your Name</label> 
           <input id="userName" type="text" placeholder="First name"> 
@@ -34,11 +36,15 @@
       </div>
     </section>
     <section class="showinfo">
-      <div class="showinfo__details">
-        <h1 class="userinfo__name">Name</h1>
-        <h2 class="userinfo__birth">Birthdate</h2>
-        <p>Here's how many months of your life have gone by, and how many you have left.</p>
-        <p>You can bookmark this page and come back anytime if you need a reminder of your time left, it will save your info and update as time goes by.</p><button id="reset">START OVER</button>
+      <div class="showinfo__toggle"><span class="icon-help"></span></div>
+      <div class="showinfo__explanation">
+        <div class="showinfo__details">
+          <span class="icon-close"></span>
+          <h1 class="userinfo__name">Name</h1>
+          <h2 class="userinfo__birth">Birthdate</h2>
+          <p>The green squares are the months that have gone by. The white are what you have left. Your information is stored in localstorage so feel free to return whenever you want.</p>
+          <button id="reset">START OVER</button>
+      </div>
       </div>
       <div class="showinfo__grid">
         <div id="timeleft">

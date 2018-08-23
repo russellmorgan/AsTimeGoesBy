@@ -1,12 +1,13 @@
 class TimeLeftClass {
     constructor() {
-      this.userLife = 1081 //90 years default, let user pick later
+      this.userLife = 1081 //90 years default, let user pick differently if they wish
       this.userInfo = localStorage.getItem('userInfo');
     }
     init() {
       this.displayData();
       this.deleteUserData();
       this.collectUserData();
+      this.displayHelp();
     }
     displayData() {
       if(this.userInfo) {
@@ -29,6 +30,8 @@ class TimeLeftClass {
         while (grid.firstChild) {
           grid.removeChild(grid.firstChild);
         }
+        // Make sure the help dialog doesn't show up by accident if ti was toggled before
+        document.querySelector('.showinfo__explanation').classList.remove('showinfo__explanation--active');
         event.preventDefault();
         this.displayData();
       });
@@ -82,6 +85,15 @@ class TimeLeftClass {
       for (let i=0; i < monthsUsed; i++) {
         monthsGrid[i].className = 'month month--past';
       }
+    }
+    displayHelp() {
+      const toggleHelpButton = document.querySelector('.showinfo__toggle');
+      toggleHelpButton.addEventListener('click', (event) => {
+        document.querySelector('.showinfo__explanation').classList.toggle('showinfo__explanation--active');
+      });
+      document.querySelector('.icon-close').addEventListener('click', (event) => {
+        document.querySelector('.showinfo__explanation').classList.toggle('showinfo__explanation--active');
+      });
     }
   }
   
