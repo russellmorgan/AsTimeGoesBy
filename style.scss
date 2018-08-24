@@ -41,6 +41,7 @@ body {
   margin:0;
   padding:0;
   background: linear-gradient(to bottom, $blue 80%, #000000 100%);
+  background-attachment: fixed;
   font-size: 1rem;
 }
 
@@ -336,9 +337,9 @@ and (max-width : 768px) {
   }
 
   .showinfo__grid #timeleft {
-    grid-gap: 8px;
-    grid-template-columns: repeat(auto-fit, minmax(6px, 1fr));
-    grid-template-rows: repeat(auto-fit, 6px);
+    grid-gap: 4px;
+    grid-template-columns: repeat(auto-fit, minmax(10px, 1fr));
+    grid-template-rows: repeat(auto-fit, 10px);
   }
 }
 

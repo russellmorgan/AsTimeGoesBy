@@ -37,6 +37,7 @@ body {
   padding: 0;
   background: -webkit-gradient(linear, left top, left bottom, color-stop(80%, #011627), to(#000000));
   background: linear-gradient(to bottom, #011627 80%, #000000 100%);
+  background-attachment: fixed;
   font-size: 1rem;
 }
 
@@ -7724,11 +7725,11 @@ button {
     width: 100%;
   }
   .showinfo__grid #timeleft {
-    grid-gap: 8px;
-    -ms-grid-columns: (minmax(6px, 1fr))[auto-fit];
-        grid-template-columns: repeat(auto-fit, minmax(6px, 1fr));
-    -ms-grid-rows: (6px)[auto-fit];
-        grid-template-rows: repeat(auto-fit, 6px);
+    grid-gap: 4px;
+    -ms-grid-columns: (minmax(10px, 1fr))[auto-fit];
+        grid-template-columns: repeat(auto-fit, minmax(10px, 1fr));
+    -ms-grid-rows: (10px)[auto-fit];
+        grid-template-rows: repeat(auto-fit, 10px);
   }
 }
 /*# sourceMappingURL=style.css.map */
