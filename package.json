@@ -1,5 +1,33 @@
 {
+  "name": "astimegoesby",
+  "version": "1.0.0",
+  "description": "death calendar",
+  "keywords": [
+    "testing"
+  ],
+  "homepage": "https://github.com/russellmorgan/AsTimeGoesBy#readme",
+  "bugs": {
+    "url": "https://github.com/russellmorgan/AsTimeGoesBy/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/russellmorgan/AsTimeGoesBy.git"
+  },
+  "license": "ISC",
+  "author": "r morgan",
+  "type": "commonjs",
+  "main": "index.html",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.16",
+    "postcss": "^8.4.40",
+    "tailwindcss": "^3.4.17"
+  },
   "dependencies": {
-    "moment": "^2.22.2"
+    "vite": "^7.3.1"
   }
 }
