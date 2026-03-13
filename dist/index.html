@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>As Time Goes By</title>
+  <script type="module" crossorigin src="/assets/index-CXSVI1T5.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/index-DM--02fD.css">
+</head>
+<body>
+  <main class="shell">
+    <section class="userinfo view">
+      <div class="panel panel--form">
+        <p class="eyebrow">Life in months</p>
+        <h1>As time goes by</h1>
+        <p class="lede">
+          See your life as a fixed number of months. What is filled is gone. What is empty is still yours to use.
+        </p>
+
+        <div class="onboarding">
+          <div class="onboarding__steps surface" aria-label="How it works">
+            <div class="step">
+              <span class="step__number">1</span>
+              <p class="step__text">Enter your birth month and year.</p>
+            </div>
+            <div class="step">
+              <span class="step__number">2</span>
+              <p class="step__text">Leave lifespan blank for a 90-year timeline, or set your own estimate.</p>
+            </div>
+            <div class="step">
+              <span class="step__number">3</span>
+              <p class="step__text">Read the grid as one month per square.</p>
+            </div>
+          </div>
+
+          <div class="onboarding__example surface" aria-hidden="true">
+            <p class="onboarding__label">Preview</p>
+            <div class="onboarding__sample">
+              <span class="onboarding__month onboarding__month--filled"></span>
+              <span class="onboarding__month onboarding__month--filled"></span>
+              <span class="onboarding__month onboarding__month--filled"></span>
+              <span class="onboarding__month onboarding__month--filled"></span>
+              <span class="onboarding__month onboarding__month--filled"></span>
+              <span class="onboarding__month"></span>
+              <span class="onboarding__month"></span>
+              <span class="onboarding__month"></span>
+              <span class="onboarding__month"></span>
+              <span class="onboarding__month"></span>
+              <span class="onboarding__month"></span>
+              <span class="onboarding__month"></span>
+            </div>
+          </div>
+        </div>
+
+        <form id="userInfoForm" name="userInfoForm" class="form">
+          <label class="field field--wide" for="userName">
+            <span>Your name</span>
+            <input id="userName" type="text" maxlength="80" autocomplete="name" placeholder="Jane" />
+          </label>
+
+          <label class="field" for="userMonth">
+            <span>Birth month</span>
+            <input id="userMonth" type="number" min="1" max="12" inputmode="numeric" placeholder="1 to 12" required />
+          </label>
+
+          <label class="field" for="userYear">
+            <span>Birth year</span>
+            <input id="userYear" type="number" min="1900" inputmode="numeric" placeholder="1990" required />
+          </label>
+
+          <label class="field" for="userLength">
+            <span>Expected lifespan</span>
+            <input id="userLength" type="number" min="0" max="200" inputmode="numeric" placeholder="Leave blank for 90 years" />
+          </label>
+
+          <button id="submit" type="submit" class="button">Show my months</button>
+        </form>
+      </div>
+    </section>
+
+    <section class="showinfo view hidden">
+      <div class="panel panel--results">
+        <div id="resultsHint" class="results__hint surface hidden" aria-live="polite">
+          <p class="results__hint-copy">Start at the top left. Each square is one month, moving forward in time across the grid.</p>
+          <button id="dismissHint" type="button" class="text-button">Got it</button>
+        </div>
+
+        <div class="results__header">
+          <div class="results__intro">
+            <p class="eyebrow">Your timeline</p>
+            <h2 class="userinfo__name"></h2>
+            <p class="userinfo__birth"></p>
+            <p id="timeSummary" class="results__summary"></p>
+            <p id="timelineReflection" class="results__reflection"></p>
+          </div>
+
+          <button id="reset" type="button" class="button button--ghost">Enter another date</button>
+        </div>
+
+        <div class="results__stats" aria-label="Timeline summary">
+          <div class="stat surface">
+            <span class="stat__label">Passed</span>
+            <strong id="monthsPassed" class="stat__value"></strong>
+          </div>
+          <div class="stat surface">
+            <span class="stat__label">Open</span>
+            <strong id="monthsRemaining" class="stat__value"></strong>
+          </div>
+          <div class="stat surface">
+            <span class="stat__label">Total</span>
+            <strong id="monthsTotal" class="stat__value"></strong>
+          </div>
+        </div>
+
+        <p class="results__note">Each square is one month. Filled squares are behind you. Empty squares are still in front of you.</p>
+
+        <div class="showinfo__grid">
+          <div id="timeleft" class="time-grid" aria-live="polite"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+</body>
+</html>

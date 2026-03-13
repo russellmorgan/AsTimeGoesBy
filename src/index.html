@@ -6,70 +6,120 @@
   <title>As Time Goes By</title>
   <link rel="stylesheet" href="/style.css" />
 </head>
-<body class="m-0 min-h-screen bg-slate-950 text-slate-100 antialiased selection:bg-cyan-400/30 selection:text-slate-950">
-  <main class="min-h-screen w-full bg-[radial-gradient(circle_at_20%_0%,rgba(8,145,178,0.18),transparent_35%),radial-gradient(circle_at_90%_20%,rgba(236,72,153,0.16),transparent_45%),radial-gradient(circle_at_50%_120%,rgba(15,23,42,0.95),rgba(2,6,23,0.95))]">
-    <section class="userinfo flex min-h-screen w-full items-stretch justify-center px-4 py-6 md:p-8">
-      <div class="w-full max-w-6xl rounded-[2px] border-2 border-slate-100/20 bg-slate-900/75 shadow-[0_0_0_2px_rgba(15,23,42,0.8),_0_20px_60px_rgba(2,6,23,0.7)] backdrop-blur-sm">
-        <div class="flex flex-col gap-6 border-b-2 border-slate-100/20 p-6 md:p-8">
-          <div class="flex flex-col gap-2">
-            <p class="text-xs font-black tracking-[0.35em] uppercase text-cyan-300">Life grid</p>
-            <h1 class="text-4xl md:text-6xl font-black leading-tight tracking-tight">As time goes by</h1>
-            <p class="max-w-3xl text-sm md:text-base leading-relaxed text-slate-300">
-              Inspired by life-week visuals, this grid marks each month as passed or remaining time. Enter your birth date and optional life expectancy to see where your month sits.
-            </p>
+<body>
+  <main class="shell">
+    <section class="userinfo view">
+      <div class="panel panel--form">
+        <p class="eyebrow">Life in months</p>
+        <h1>As time goes by</h1>
+        <p class="lede">
+          See your life as a fixed number of months. What is filled is gone. What is empty is still yours to use.
+        </p>
+
+        <div class="onboarding">
+          <div class="onboarding__steps surface" aria-label="How it works">
+            <div class="step">
+              <span class="step__number">1</span>
+              <p class="step__text">Enter your birth month and year.</p>
+            </div>
+            <div class="step">
+              <span class="step__number">2</span>
+              <p class="step__text">Leave lifespan blank for a 90-year timeline, or set your own estimate.</p>
+            </div>
+            <div class="step">
+              <span class="step__number">3</span>
+              <p class="step__text">Read the grid as one month per square.</p>
+            </div>
+          </div>
+
+          <div class="onboarding__example surface" aria-hidden="true">
+            <p class="onboarding__label">Preview</p>
+            <div class="onboarding__sample">
+              <span class="onboarding__month onboarding__month--filled"></span>
+              <span class="onboarding__month onboarding__month--filled"></span>
+              <span class="onboarding__month onboarding__month--filled"></span>
+              <span class="onboarding__month onboarding__month--filled"></span>
+              <span class="onboarding__month onboarding__month--filled"></span>
+              <span class="onboarding__month"></span>
+              <span class="onboarding__month"></span>
+              <span class="onboarding__month"></span>
+              <span class="onboarding__month"></span>
+              <span class="onboarding__month"></span>
+              <span class="onboarding__month"></span>
+              <span class="onboarding__month"></span>
+            </div>
           </div>
         </div>
 
-        <form id="userInfoForm" name="userInfoForm" class="grid gap-4 p-6 md:p-8 md:grid-cols-[1fr_1fr_1fr_180px]">
-          <div class="md:col-span-4 border-b border-slate-100/20 pb-4 mb-2">
-            <label for="userName" class="text-xs font-black uppercase tracking-[0.2em] text-slate-300">Your name</label>
-            <input id="userName" type="text" class="mt-2 w-full rounded-none border-2 border-slate-100/30 bg-slate-950 px-4 py-3 text-slate-100 outline-none focus:border-cyan-300" placeholder="Your name" />
-          </div>
-
-          <label class="grid gap-2">
-            <span class="text-xs font-black uppercase tracking-[0.2em] text-slate-300">Birth month</span>
-            <input id="userMonth" type="number" min="1" max="12" class="w-full rounded-none border-2 border-slate-100/30 bg-slate-950 px-4 py-3 text-slate-100 outline-none focus:border-cyan-300" placeholder="1 to 12" required />
+        <form id="userInfoForm" name="userInfoForm" class="form">
+          <label class="field field--wide" for="userName">
+            <span>Your name</span>
+            <input id="userName" type="text" maxlength="80" autocomplete="name" placeholder="Jane" />
           </label>
 
-          <label class="grid gap-2">
-            <span class="text-xs font-black uppercase tracking-[0.2em] text-slate-300">Birth year</span>
-            <input id="userYear" type="number" min="1900" class="w-full rounded-none border-2 border-slate-100/30 bg-slate-950 px-4 py-3 text-slate-100 outline-none focus:border-cyan-300" placeholder="1990" required />
+          <label class="field" for="userMonth">
+            <span>Birth month</span>
+            <input id="userMonth" type="number" min="1" max="12" inputmode="numeric" placeholder="1 to 12" required />
           </label>
 
-          <label class="grid gap-2">
-            <span class="text-xs font-black uppercase tracking-[0.2em] text-slate-300">Expected lifespan</span>
-            <input id="userLength" type="number" min="0" max="200" class="w-full rounded-none border-2 border-slate-100/30 bg-slate-950 px-4 py-3 text-slate-100 outline-none focus:border-cyan-300" placeholder="Default 90 years" />
+          <label class="field" for="userYear">
+            <span>Birth year</span>
+            <input id="userYear" type="number" min="1900" inputmode="numeric" placeholder="1990" required />
           </label>
 
-          <button id="submit" type="button" class="rounded-none border-2 border-cyan-300 bg-cyan-400/90 px-6 py-3 text-sm font-black uppercase tracking-[0.2em] text-slate-950 transition hover:bg-cyan-200 hover:translate-x-1 hover:-translate-y-1">Generate grid</button>
+          <label class="field" for="userLength">
+            <span>Expected lifespan</span>
+            <input id="userLength" type="number" min="0" max="200" inputmode="numeric" placeholder="Leave blank for 90 years" />
+          </label>
+
+          <button id="submit" type="submit" class="button">Show my months</button>
         </form>
       </div>
     </section>
 
-    <section class="showinfo hidden w-full px-4 pb-8 pt-12 sm:pt-16">
-      <div class="relative mx-auto flex min-h-[calc(100vh-2rem)] max-w-6xl flex-col gap-4">
-        <button class="showinfo__toggle self-start rounded-none border-2 border-cyan-300/80 bg-cyan-300/10 px-4 py-2 text-xs font-black uppercase tracking-[0.2em] text-cyan-200 transition hover:bg-cyan-300/20">How this works</button>
+    <section class="showinfo view hidden">
+      <div class="panel panel--results">
+        <div id="resultsHint" class="results__hint surface hidden" aria-live="polite">
+          <p class="results__hint-copy">Start at the top left. Each square is one month, moving forward in time across the grid.</p>
+          <button id="dismissHint" type="button" class="text-button">Got it</button>
+        </div>
 
-        <div class="showinfo__explanation pointer-events-none fixed inset-x-4 bottom-4 z-30 translate-y-full transform transition-transform duration-500 sm:left-8 sm:right-auto sm:w-[28rem]">
-          <div class="pointer-events-auto rounded-none border-2 border-fuchsia-300/30 bg-slate-900/95 p-5 shadow-[0_12px_40px_rgba(2,6,23,0.8)]">
-            <button class="showinfo__close float-right ml-2 border border-slate-500 px-2 py-1 text-xs font-black uppercase tracking-[0.15em]">Close</button>
-            <h1 class="userinfo__name mt-1 text-4xl font-black leading-tight text-slate-100"></h1>
-            <h2 class="userinfo__birth mt-2 text-xl font-black text-slate-300"></h2>
-            <p class="mt-4 text-sm text-slate-300">
-              Green tiles are months that have passed. Neutral tiles are remaining time.
-              Data is kept in your browser so you can return later.
-            </p>
-            <button id="reset" type="button" class="mt-5 border-2 border-rose-300 bg-rose-300/90 px-5 py-2 text-xs font-black uppercase tracking-[0.2em] text-slate-950 transition hover:bg-rose-200">Reset</button>
+        <div class="results__header">
+          <div class="results__intro">
+            <p class="eyebrow">Your timeline</p>
+            <h2 class="userinfo__name"></h2>
+            <p class="userinfo__birth"></p>
+            <p id="timeSummary" class="results__summary"></p>
+            <p id="timelineReflection" class="results__reflection"></p>
+          </div>
+
+          <button id="reset" type="button" class="button button--ghost">Enter another date</button>
+        </div>
+
+        <div class="results__stats" aria-label="Timeline summary">
+          <div class="stat surface">
+            <span class="stat__label">Passed</span>
+            <strong id="monthsPassed" class="stat__value"></strong>
+          </div>
+          <div class="stat surface">
+            <span class="stat__label">Open</span>
+            <strong id="monthsRemaining" class="stat__value"></strong>
+          </div>
+          <div class="stat surface">
+            <span class="stat__label">Total</span>
+            <strong id="monthsTotal" class="stat__value"></strong>
           </div>
         </div>
 
-        <div class="showinfo__grid min-h-[70vh] w-full border-2 border-slate-100/20 bg-slate-900/40 p-4">
-          <div id="timeleft" class="grid h-full w-full grid-cols-[repeat(auto-fit,minmax(12px,1fr))] sm:grid-cols-[repeat(auto-fit,minmax(18px,1fr))] gap-1 sm:gap-2"></div>
+        <p class="results__note">Each square is one month. Filled squares are behind you. Empty squares are still in front of you.</p>
+
+        <div class="showinfo__grid">
+          <div id="timeleft" class="time-grid" aria-live="polite"></div>
         </div>
       </div>
     </section>
   </main>
 
-  <script src="main.js"></script>
+  <script type="module" src="main.js"></script>
 </body>
 </html>
