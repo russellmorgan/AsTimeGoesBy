@@ -130,6 +130,38 @@ h1 {
   white-space: nowrap;
 }
 
+.site-title {
+  position: relative;
+  display: inline-block;
+}
+
+.site-title span {
+  display: inline-block;
+  transform: translateY(14px);
+  opacity: 0;
+}
+
+.site-title::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -10px;
+  height: 1px;
+  background: color-mix(in srgb, var(--accent-strong) 56%, transparent);
+  transform: scaleX(0);
+  transform-origin: left center;
+  opacity: 0;
+}
+
+.panel--active .site-title span {
+  animation: title-rise 720ms var(--ease-out-expo) 120ms both;
+}
+
+.panel--active .site-title::after {
+  animation: title-rule 560ms var(--ease-out-quart) 280ms both;
+}
+
 @media (max-width: 540px) {
   h1 {
     font-size: clamp(2.2rem, 11vw, 3.4rem);
@@ -588,6 +620,30 @@ h2 {
   }
 }
 
+@keyframes title-rise {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes title-rule {
+  from {
+    opacity: 0;
+    transform: scaleX(0);
+  }
+
+  to {
+    opacity: 1;
+    transform: scaleX(1);
+  }
+}
+
 @media (max-width: 820px) {
   .shell {
     padding: 16px;
@@ -693,7 +749,15 @@ h2 {
   .button:hover,
   .button:active,
   .text-button:active,
-  .onboarding__sample {
+  .onboarding__sample,
+  .site-title span,
+  .site-title::after {
     transform: none;
+  }
+
+  .panel--active .site-title span,
+  .panel--active .site-title::after {
+    animation: none;
+    opacity: 1;
   }
 }
