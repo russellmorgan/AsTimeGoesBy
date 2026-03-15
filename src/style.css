@@ -557,6 +557,8 @@ h2 {
 .month:hover {
   border-color: var(--accent-strong);
   transform: scale(1.04);
+  opacity: 0.5;
+  cursor: pointer;
 }
 
 .month--passed {
