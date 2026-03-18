@@ -1,20 +1,8 @@
-const CONFIG = {
-  DEFAULT_LIFE_MONTHS: 90 * 12,
-  MAX_LIFE_YEARS: 200,
-  MIN_BIRTH_YEAR: 1900,
-  MONTH_ANIMATION_DELAY_STEP: 0.0015,
-  HIDDEN_CLASS: 'hidden',
-  VALIDATION_MESSAGE_CLASS: 'form__validation hidden',
-  PASSED_MONTH_CLASS: 'month--passed',
-  RESULTS_HINT_STORAGE_KEY: 'resultsHintDismissed',
-  USER_INFO_STORAGE_KEY: 'userInfo',
-};
-
-const state = {
-  isSubmitting: false,
-  userInfo: null,
-  userLifeMonths: CONFIG.DEFAULT_LIFE_MONTHS,
-};
+import { state, subscribeToState, CONFIG } from './core/state.js';
+import { getStorageItem, setStorageItem, removeStorageItem } from './utils/storage.js';
+import { isValidUserInfo, parseAndValidateInput } from './utils/validation.js';
+import { buildGrid, getMonthsUsed } from './core/grid.js';
+import { initTheme } from './utils/theme.js';
 
 const refs = {
   userinfo: document.querySelector('.userinfo'),
@@ -43,10 +31,29 @@ const refs = {
 
 function init() {
   attachValidationMessage();
+  setupStateReactivity();
+  initTheme();
   initStoredView();
   bindFormEvents();
   requestAnimationFrame(() => {
     refs.formPanel?.classList.add('panel--active');
+  });
+}
+
+function setupStateReactivity() {
+  subscribeToState((property, value) => {
+    if (property === 'isSubmitting') {
+      if (refs.submit) refs.submit.disabled = value;
+    }
+    if (property === 'userInfo') {
+      if (value) {
+        renderUserInfo();
+      } else {
+        clearGrid();
+        hideValidationErrors();
+        showFormView();
+      }
+    }
   });
 }
 
@@ -69,9 +76,8 @@ function initStoredView() {
     return;
   }
 
-  state.userInfo = storedUserInfo;
+  state.userInfo = storedUserInfo; // Triggers reactivity
   showResultsView();
-  renderUserInfo();
 }
 
 function readStoredUserInfo() {
@@ -104,110 +110,32 @@ function bindFormEvents() {
 function onSubmit(event) {
   event.preventDefault();
   if (state.isSubmitting) return;
-  setSubmitting(true);
+  state.isSubmitting = true;
 
-  const parsedInput = parseAndValidateInput();
+  const parsedInput = parseAndValidateInput(refs);
   if (!parsedInput.isValid) {
     showValidationErrors(parsedInput.errors, parsedInput.fieldErrors);
-    setSubmitting(false);
+    state.isSubmitting = false;
     return;
   }
 
   const wasSaved = setStorageItem(CONFIG.USER_INFO_STORAGE_KEY, JSON.stringify(parsedInput.userInfo));
-  state.userInfo = parsedInput.userInfo;
+  state.userInfo = parsedInput.userInfo; // Triggers render
   hideValidationErrors();
   showResultsView();
-  renderUserInfo();
+  
   if (!wasSaved) {
     showValidationErrors(['Your browser blocked saved progress. This view will reset when you close the page.']);
   }
-  setSubmitting(false);
+  state.isSubmitting = false;
 }
 
 function onReset(event) {
   event.preventDefault();
   removeStorageItem(CONFIG.USER_INFO_STORAGE_KEY);
-  state.userInfo = null;
   state.userLifeMonths = CONFIG.DEFAULT_LIFE_MONTHS;
-  clearGrid();
-  hideValidationErrors();
-  showFormView();
+  state.userInfo = null; // Triggers reset render
   refs.form?.reset();
-}
-
-function setSubmitting(value) {
-  state.isSubmitting = value;
-  if (refs.submit) refs.submit.disabled = value;
-}
-
-function parseAndValidateInput() {
-  const userInfo = {
-    userName: refs.nameInput?.value.trim() || '',
-    userMonth: Number(refs.monthInput?.value),
-    userYear: Number(refs.yearInput?.value),
-    userLength: normalizeOptionalNumber(refs.lifeInput?.value),
-  };
-
-  const validation = isValidUserInfo(userInfo);
-  return {
-    userInfo,
-    isValid: validation.isValid,
-    errors: validation.errors,
-    fieldErrors: validation.fieldErrors,
-  };
-}
-
-function normalizeOptionalNumber(value) {
-  if (value === undefined || value === null || String(value).trim() === '') return undefined;
-  const numberValue = Number(value);
-  return Number.isNaN(numberValue) ? NaN : numberValue;
-}
-
-function isValidUserInfo(userInfo) {
-  const now = new Date();
-  const errors = [];
-  const fieldErrors = {};
-
-  if (!userInfo.userName) {
-    fieldErrors.userName = 'Enter your name.';
-  } else if (userInfo.userName.length > 80) {
-    fieldErrors.userName = 'Name must be 80 characters or fewer.';
-  }
-
-  if (!Number.isInteger(userInfo.userMonth) || userInfo.userMonth < 1 || userInfo.userMonth > 12) {
-    fieldErrors.userMonth = 'Birth month must be a number from 1 to 12.';
-  }
-
-  if (
-    !Number.isInteger(userInfo.userYear)
-    || userInfo.userYear < CONFIG.MIN_BIRTH_YEAR
-    || userInfo.userYear > now.getFullYear()
-  ) {
-    fieldErrors.userYear = `Birth year must be between ${CONFIG.MIN_BIRTH_YEAR} and ${now.getFullYear()}.`;
-  }
-
-  if (userInfo.userLength !== undefined) {
-    if (!Number.isInteger(userInfo.userLength) || userInfo.userLength < 1 || userInfo.userLength > CONFIG.MAX_LIFE_YEARS) {
-      fieldErrors.userLength = `Expected lifespan must be between 1 and ${CONFIG.MAX_LIFE_YEARS} years.`;
-    }
-  }
-
-  if (
-    Number.isInteger(userInfo.userMonth)
-    && Number.isInteger(userInfo.userYear)
-    && userInfo.userYear === now.getFullYear()
-    && userInfo.userMonth > now.getMonth() + 1
-  ) {
-    fieldErrors.userMonth = 'Birth month cannot be in the future.';
-  }
-
-  Object.values(fieldErrors).forEach((message) => errors.push(message));
-
-  return {
-    isValid: errors.length === 0,
-    errors,
-    fieldErrors,
-  };
 }
 
 function renderUserInfo() {
@@ -215,71 +143,20 @@ function renderUserInfo() {
 
   refs.userinfoName.textContent = state.userInfo.userName;
   refs.userinfoBirth.textContent = `Born ${formatBirthDate(state.userInfo)}`;
-  buildGrid();
-  renderSummary();
+  
+  // buildGrid handles its own chunking now
+  buildGrid(refs.timeLeft, () => {
+    // Only render summary once grid is complete or alongside it
+    renderSummary();
+  });
 }
 
 function formatBirthDate(userInfo) {
   const birthDate = new Date(Number(userInfo.userYear), Number(userInfo.userMonth) - 1, 1);
-  return birthDate.toLocaleString(getUserLocale(), {
+  return birthDate.toLocaleString(navigator.language || 'en-US', {
     month: 'long',
     year: 'numeric',
   });
-}
-
-function buildGrid() {
-  if (!state.userInfo || !refs.timeLeft) return;
-
-  clearGrid();
-  const totalMonths = getUserLifeInMonths();
-  state.userLifeMonths = totalMonths;
-
-  const fragment = document.createDocumentFragment();
-  for (let monthIndex = 0; monthIndex < totalMonths; monthIndex += 1) {
-    fragment.appendChild(createMonthNode(monthIndex + 1));
-  }
-
-  refs.timeLeft.appendChild(fragment);
-  markPassedMonths();
-}
-
-function createMonthNode(monthNumber) {
-  const month = document.createElement('div');
-  month.className = 'month';
-  month.style.animationDelay = `${monthNumber * CONFIG.MONTH_ANIMATION_DELAY_STEP}s`;
-  const monthDateLabel = getMonthLabelForIndex(monthNumber);
-  month.setAttribute('title', monthDateLabel);
-  month.setAttribute('aria-label', monthDateLabel);
-  return month;
-}
-
-function getUserLifeInMonths() {
-  const userYears = Number(state.userInfo.userLength);
-  if (Number.isInteger(userYears) && userYears > 0) {
-    return userYears * 12;
-  }
-  return CONFIG.DEFAULT_LIFE_MONTHS;
-}
-
-function markPassedMonths() {
-  const monthsUsed = getMonthsUsed();
-  const totalMonths = Math.min(monthsUsed, refs.timeLeft?.children.length || 0);
-
-  for (let index = 0; index < totalMonths; index += 1) {
-    const month = refs.timeLeft.children[index];
-    month.classList.add(CONFIG.PASSED_MONTH_CLASS);
-  }
-
-  if (monthsUsed >= 0 && monthsUsed < (refs.timeLeft?.children.length || 0)) {
-    refs.timeLeft.children[monthsUsed]?.classList.add('month--current');
-  }
-}
-
-function getMonthsUsed() {
-  const birthDate = new Date(Number(state.userInfo.userYear), Number(state.userInfo.userMonth) - 1, 1);
-  const now = new Date();
-  const roughMonthsUsed = (now.getFullYear() - birthDate.getFullYear()) * 12 + (now.getMonth() - birthDate.getMonth());
-  return Math.max(0, roughMonthsUsed);
 }
 
 function renderSummary() {
@@ -391,16 +268,6 @@ function isResultsHintDismissed() {
   return getStorageItem(CONFIG.RESULTS_HINT_STORAGE_KEY) === 'true';
 }
 
-function getMonthLabelForIndex(monthNumber) {
-  const birthDate = new Date(Number(state.userInfo.userYear), Number(state.userInfo.userMonth) - 1, 1);
-  const monthDate = new Date(birthDate.getFullYear(), birthDate.getMonth() + (monthNumber - 1), 1);
-
-  return monthDate.toLocaleString(getUserLocale(), {
-    month: 'long',
-    year: 'numeric',
-  });
-}
-
 function clearFieldErrors() {
   [refs.nameInput, refs.monthInput, refs.yearInput, refs.lifeInput].forEach((field) => {
     if (!field) return;
@@ -408,35 +275,6 @@ function clearFieldErrors() {
     field.removeAttribute('aria-describedby');
     delete field.dataset.error;
   });
-}
-
-function getStorageItem(key) {
-  try {
-    return window.localStorage.getItem(key);
-  } catch (error) {
-    return null;
-  }
-}
-
-function setStorageItem(key, value) {
-  try {
-    window.localStorage.setItem(key, value);
-    return true;
-  } catch (error) {
-    return false;
-  }
-}
-
-function removeStorageItem(key) {
-  try {
-    window.localStorage.removeItem(key);
-  } catch (error) {
-    // Ignore storage removal failures and continue with in-memory state.
-  }
-}
-
-function getUserLocale() {
-  return navigator.language || 'en-US';
 }
 
 init();

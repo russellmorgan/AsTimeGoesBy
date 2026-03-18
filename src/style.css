@@ -24,22 +24,67 @@
   font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
 }
 
+:root[data-theme="light"] {
+  color-scheme: light;
+  --bg: #eeeeee;
+  --panel: #ffffff;
+  --panel-border: #d4d4d4;
+  --text: #111111;
+  --muted: #555555;
+  --accent: #272d3d;
+  --accent-strong: #000000;
+  --grid-empty: #e0e0e0;
+  --grid-empty-border: #d0d0d0;
+  --grid-filled: #272d3d;
+  --grid-filled-border: #000000;
+  --danger: #c0392b;
+  --surface-quiet: color-mix(in srgb, var(--panel) 76%, var(--grid-empty));
+}
+
 @media (prefers-color-scheme: light) {
-  :root {
-    --bg: #f4f1e8;
-    --panel: #fffdf7;
-    --panel-border: #d7d1c5;
-    --text: #1b1a18;
-    --muted: #605a51;
-    --accent: #2b2b2b;
-    --accent-strong: #111111;
-    --grid-empty: #ece7dc;
-    --grid-empty-border: #d1cabd;
-    --grid-filled: #2b2b2b;
-    --grid-filled-border: #111111;
-    --danger: #ab4f4f;
+  :root:not([data-theme="dark"]) {
+    color-scheme: light;
+    --bg: #eeeeee;
+    --panel: #ffffff;
+    --panel-border: #d4d4d4;
+    --text: #111111;
+    --muted: #555555;
+    --accent: #272d3d;
+    --accent-strong: #000000;
+    --grid-empty: #e0e0e0;
+    --grid-empty-border: #d0d0d0;
+    --grid-filled: #272d3d;
+    --grid-filled-border: #000000;
+    --danger: #c0392b;
+    --surface-quiet: color-mix(in srgb, var(--panel) 76%, var(--grid-empty));
   }
 }
+
+.theme-toggle {
+  position: absolute;
+  top: var(--space-4);
+  right: var(--space-4);
+  padding: 8px;
+  min-height: 44px;
+  width: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: var(--border-width) solid var(--panel-border);
+  font-size: 1.25rem;
+  z-index: 100;
+}
+
+.theme-toggle-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.theme-toggle__icon {
+  display: block;
+}
+
 
 *,
 *::before,
@@ -79,6 +124,7 @@ input {
 }
 
 .panel {
+  position: relative;
   width: min(100%, 1120px);
   margin: 0 auto;
   border: var(--border-width) solid var(--panel-border);
@@ -395,7 +441,7 @@ h2 {
   min-width: 0;
 }
 
-.results__intro > *,
+.results__intro>*,
 .results__stats .stat,
 .results__note,
 .showinfo__grid,
@@ -405,7 +451,7 @@ h2 {
   transition: opacity 320ms var(--ease-out-quart), transform 320ms var(--ease-out-quart);
 }
 
-.panel--active .results__intro > *,
+.panel--active .results__intro>*,
 .panel--active .results__stats .stat,
 .panel--active .results__note,
 .panel--active .showinfo__grid,
@@ -414,23 +460,23 @@ h2 {
   transform: translateY(0);
 }
 
-.panel--active .results__intro > :nth-child(1) {
+.panel--active .results__intro> :nth-child(1) {
   transition-delay: 40ms;
 }
 
-.panel--active .results__intro > :nth-child(2) {
+.panel--active .results__intro> :nth-child(2) {
   transition-delay: 90ms;
 }
 
-.panel--active .results__intro > :nth-child(3) {
+.panel--active .results__intro> :nth-child(3) {
   transition-delay: 130ms;
 }
 
-.panel--active .results__intro > :nth-child(4) {
+.panel--active .results__intro> :nth-child(4) {
   transition-delay: 170ms;
 }
 
-.panel--active .results__intro > :nth-child(5) {
+.panel--active .results__intro> :nth-child(5) {
   transition-delay: 210ms;
 }
 
@@ -566,6 +612,18 @@ h2 {
   border-color: var(--grid-filled-border);
 }
 
+.month--decade {
+  /* Decade milestone */
+}
+
+.month--passed.month--decade {
+  background: var(--accent-strong) !important;
+  border-color: var(--accent-strong) !important;
+  transform: scale(1.3) !important;
+  box-shadow: 0 0 10px var(--accent-strong), 0 0 20px color-mix(in srgb, var(--accent-strong) 40%, transparent);
+  z-index: 10;
+}
+
 .month--current {
   position: relative;
   border-color: var(--accent-strong);
@@ -585,12 +643,10 @@ h2 {
 @keyframes month-in {
   from {
     opacity: 0;
-    transform: translateY(4px);
   }
 
   to {
     opacity: 1;
-    transform: translateY(0);
   }
 }
 
@@ -612,6 +668,7 @@ h2 {
 }
 
 @keyframes preview-drift {
+
   0%,
   100% {
     transform: translateY(0);
@@ -691,6 +748,11 @@ h2 {
     min-height: calc(100dvh - 20px);
   }
 
+  .theme-toggle {
+    top: 16px;
+    right: 16px;
+  }
+
   .panel--form,
   .panel--results {
     padding: 16px;
@@ -739,6 +801,7 @@ h2 {
 }
 
 @media (prefers-reduced-motion: reduce) {
+
   *,
   *::before,
   *::after {
